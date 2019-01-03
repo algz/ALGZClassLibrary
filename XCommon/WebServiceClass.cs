@@ -45,7 +45,7 @@ namespace XCommon
 
             #region 获取WSDL
             WebClient wc = new WebClient();
-            Stream stream = wc.OpenRead(url + "?WSDL");
+            Stream stream = wc.OpenRead(url.ToLower().EndsWith("?wsdl")?url:url + "?wsdl");
             ServiceDescription sd = ServiceDescription.Read(stream);//服务的描述信息都可以通过ServiceDescription获取  
             string classname = sd.Services[0].Name;
             
@@ -90,7 +90,7 @@ namespace XCommon
         /// 动态调用web服务
         /// 服务地址，该地址可以放到程序的配置文件中，这样即使服务地址改变了，也无须重新编译程序。
         /// </summary>
-        /// <param name="url">服务地址</param>
+        /// <param name="url">服务地址。（后缀"?wsdl"程序自行判断添加）</param>
         /// <param name="methodname">方法名</param>
         /// <param name="args">参数值</param>
         /// <returns></returns>
