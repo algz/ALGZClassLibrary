@@ -107,6 +107,9 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Data.SQLite">
+      <HintPath>D:\Program Files (x86)\System.Data.SQLite\2008\bin\System.Data.SQLite.dll</HintPath>
+    </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Management" />
@@ -128,6 +131,7 @@
     <Compile Include="CommonMessage.cs" />
     <Compile Include="Encryption.cs" />
     <Compile Include="ExcelLib.cs" />
+    <Compile Include="FileClass.cs" />
     <Compile Include="FileStatus.cs" />
     <Compile Include="IniFileClass.cs" />
     <Compile Include="JsonClass.cs" />
@@ -139,6 +143,10 @@
     </Compile>
     <Compile Include="RegisterClass.cs" />
     <Compile Include="ReportData.cs" />
+    <Compile Include="SQLitePoolCommon.cs" />
+    <Compile Include="SQLiteSingletonCommon.cs" />
+    <Compile Include="SqliteClass1.cs" />
+    <Compile Include="SQLiteClass.cs" />
     <Compile Include="Verification.cs" />
     <Compile Include="WebServiceClass.cs" />
     <Compile Include="XDebug.cs" />
