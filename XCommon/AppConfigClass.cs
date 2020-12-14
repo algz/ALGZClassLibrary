@@ -8,7 +8,8 @@ using System.Xml;
 namespace XCommon
 {
     /// <summary>
-    /// 在源代码中引用了using System.Configuration，还需在解决方案资源管理器里的“引用”中添加“System.Configuration”。
+    /// 1.在源代码中引用了using System.Configuration，还需在解决方案资源管理器的项目里“引用”中添加“System.Configuration”。
+    /// 2.项目添加新建项目->选择"应用配置文件".
     /*
      <!-- app.config -->
 

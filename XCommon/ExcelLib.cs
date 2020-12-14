@@ -8,7 +8,7 @@ using System.IO;
 using System.Windows.Forms;
 using Excel = Microsoft.Office.Interop.Excel;
 
-namespace ZaeroModelSystem
+namespace XCommon
 {
     public class ExcelLib
     {
