@@ -158,36 +158,45 @@ namespace DBLibrary
         /// <returns></returns>
         public int ExecuteNonQuery(string commandText, params DbParameter[] commandParameters)
         {
-            using (DbConnection conn = Activator.CreateInstance<C>() as DbConnection)
+            try
             {
-                conn.ConnectionString = ConnectionString;
-                using (DbCommand command = Activator.CreateInstance<S>() as DbCommand)
+                using (DbConnection conn = Activator.CreateInstance<C>() as DbConnection)
                 {
-                    //commandText = commandText.ToUpper();
-                    if (commandParameters != null && commandParameters.Count() != 0)
+                    conn.ConnectionString = ConnectionString;
+                    using (DbCommand command = Activator.CreateInstance<S>() as DbCommand)
                     {
-                        foreach(DbParameter dbp in commandParameters)
+                        //commandText = commandText.ToUpper();
+                        if (commandParameters != null && commandParameters.Count() != 0)
                         {
-                            if (dbp.DbType.ToString() == "String")
+                            foreach (DbParameter dbp in commandParameters)
                             {
-                                Regex reg = new Regex(":" + dbp.ParameterName.ToUpper(),RegexOptions.IgnoreCase);
-                                string txt=commandText=commandText = reg.Replace(commandText, "'"+dbp.Value + "'",1);
-                            }
-                            else if (dbp.DbType.ToString().Contains("Int"))
-                            {
-                                commandText = commandText.Replace(":" + dbp.ParameterName.ToUpper(), dbp.Value + "");
+                                if (dbp.DbType.ToString() == "String")
+                                {
+                                    Regex reg = new Regex(":" + dbp.ParameterName.ToUpper(), RegexOptions.IgnoreCase);
+                                    string txt = commandText = commandText = reg.Replace(commandText, "'" + dbp.Value + "'", 1);
+                                }
+                                else if (dbp.DbType.ToString().Contains("Int"))
+                                {
+                                    commandText = commandText.Replace(":" + dbp.ParameterName.ToUpper(), dbp.Value + "");
+
+                                }
 
                             }
-
+                            //command.Parameters.AddRange(commandParameters);
                         }
-                        //command.Parameters.AddRange(commandParameters);
+                        conn.Open();
+                        command.CommandText = commandText;
+                        command.Connection = conn;
+                        return command.ExecuteNonQuery();
                     }
-                    conn.Open();
-                    command.CommandText = commandText;
-                    command.Connection = conn;
-                    return command.ExecuteNonQuery();
                 }
             }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
         }
 
         // 查询并返回datatable
