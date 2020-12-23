@@ -97,7 +97,7 @@ namespace AppConfigLibrary
                 else
                     return "";
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return "";
             }

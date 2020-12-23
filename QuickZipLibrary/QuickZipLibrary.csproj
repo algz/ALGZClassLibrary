@@ -4,19 +4,18 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{83E8D18B-D59C-4CBC-BE7D-254E04437282}</ProjectGuid>
+    <ProjectGuid>{108EF717-7AA0-4445-A0D0-EFEC22ED4214}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WebLibrary</RootNamespace>
-    <AssemblyName>WebLibrary</AssemblyName>
+    <RootNamespace>QuickZipLibrary</RootNamespace>
+    <AssemblyName>QuickZipLibrary</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>false</DebugSymbols>
-    <DebugType>none</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
@@ -32,14 +31,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\documents\visual studio 2015\Projects\SANY_WINFORM\packages\Newtonsoft.Json.12.0.3\lib\net40\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Ionic.Zip">
+      <HintPath>C:\Users\algz\Downloads\DotNetZip\Ionic.Zip.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,17 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Ftp\FtpClient.cs" />
-    <Compile Include="Http\WebClientExtClass.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Http\HttpClass.cs" />
-    <Compile Include="Other\Login\WebRequestClass.cs" />
+    <Compile Include="ZipClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Other\Anonymous\WebRequestClass.cs" />
-    <Compile Include="Other\Certificate\WebRequestClass.cs" />
-    <Compile Include="Serialize\SerializeJSONClass.cs" />
-    <Compile Include="Serialize\SerializeXMLClass.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

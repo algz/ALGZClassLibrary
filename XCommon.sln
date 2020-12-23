@@ -47,6 +47,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMQLibrary", "RabbitMQ
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocketLibrary", "SocketLibrary\SocketLibrary.csproj", "{754530DF-DBAD-4F08-8F40-E3F5156AB514}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickZipLibrary", "QuickZipLibrary\QuickZipLibrary.csproj", "{108EF717-7AA0-4445-A0D0-EFEC22ED4214}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailLibrary", "EmailLibrary\EmailLibrary.csproj", "{CE482633-91AC-45F1-8508-79883ED188EA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -231,6 +235,22 @@ Global
 		{754530DF-DBAD-4F08-8F40-E3F5156AB514}.Release|Any CPU.Build.0 = Release|Any CPU
 		{754530DF-DBAD-4F08-8F40-E3F5156AB514}.Release|x86.ActiveCfg = Release|Any CPU
 		{754530DF-DBAD-4F08-8F40-E3F5156AB514}.Release|x86.Build.0 = Release|Any CPU
+		{108EF717-7AA0-4445-A0D0-EFEC22ED4214}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{108EF717-7AA0-4445-A0D0-EFEC22ED4214}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{108EF717-7AA0-4445-A0D0-EFEC22ED4214}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{108EF717-7AA0-4445-A0D0-EFEC22ED4214}.Debug|x86.Build.0 = Debug|Any CPU
+		{108EF717-7AA0-4445-A0D0-EFEC22ED4214}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{108EF717-7AA0-4445-A0D0-EFEC22ED4214}.Release|Any CPU.Build.0 = Release|Any CPU
+		{108EF717-7AA0-4445-A0D0-EFEC22ED4214}.Release|x86.ActiveCfg = Release|Any CPU
+		{108EF717-7AA0-4445-A0D0-EFEC22ED4214}.Release|x86.Build.0 = Release|Any CPU
+		{CE482633-91AC-45F1-8508-79883ED188EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE482633-91AC-45F1-8508-79883ED188EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE482633-91AC-45F1-8508-79883ED188EA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{CE482633-91AC-45F1-8508-79883ED188EA}.Debug|x86.Build.0 = Debug|Any CPU
+		{CE482633-91AC-45F1-8508-79883ED188EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE482633-91AC-45F1-8508-79883ED188EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE482633-91AC-45F1-8508-79883ED188EA}.Release|x86.ActiveCfg = Release|Any CPU
+		{CE482633-91AC-45F1-8508-79883ED188EA}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
