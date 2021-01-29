@@ -37,26 +37,22 @@ namespace SystemIOLibrary
                 int index = 1;
                 if (Directory.Exists(SourcePath))
                 {
-                    if (Directory.Exists(DestinationPath) == false)
+                    if (!Directory.Exists(DestinationPath))
                         Directory.CreateDirectory(DestinationPath);
-
+                    //1。复制当前目录下的文件
                     foreach (string fls in Directory.GetFiles(SourcePath))
                     {
                         FileInfo flinfo = new FileInfo(fls);
-                        if (ProcesssMethod == null)
-                        {
-                            flinfo.CopyTo(DestinationPath + flinfo.Name, overwriteexisting);
-                        }
-                        else if (ProcesssMethod!=null&&ProcesssMethod(flinfo,index++))
+                        if (ProcesssMethod == null||ProcesssMethod(flinfo, index++))
                         {
                             flinfo.CopyTo(DestinationPath + flinfo.Name, overwriteexisting);
                         } 
                     }
+                    //1。获取当前目录下的目录，复制文件
                     foreach (string drs in Directory.GetDirectories(SourcePath))
                     {
                         DirectoryInfo drinfo = new DirectoryInfo(drs);
-                        if (CopyDirectory(drs, DestinationPath + drinfo.Name, overwriteexisting) == false)
-                            ret = false;
+                        CopyDirectory(drs, DestinationPath + drinfo.Name, overwriteexisting, ProcesssMethod);
                     }
                 }
                 ret = true;

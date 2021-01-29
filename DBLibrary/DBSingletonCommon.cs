@@ -344,6 +344,50 @@ namespace DBLibrary
             return dbcommon.ExecuteNonQuery(sql);
         }
 
+        /// <summary>
+        /// 删除数据.
+        /// 表格字段必须与方法名相同,主键名称必须是"ID".
+        /// </summary>
+        /// <param name="t"></param>
+        /// <param name="tableName"></param>
+        /// <returns></returns>
+        public static int ExecuteNonQuery_Del(object t, string tableName)
+        {
+            //获得所有列名
+            DataTable dt = GetColumnNames(tableName);
+
+            List<string> valList = new List<string>();
+            string id = null;
+            foreach (PropertyInfo pi in t.GetType().GetProperties())
+            {
+                if (dt.Select("COLUMN_NAME='" + pi.Name.ToUpper() + "'").Length > 0)
+                {
+                    var val = pi.GetValue(t, null);
+                    if (pi.Name.ToUpper() == "ID")
+                    {
+                        id = val.ToString();
+                    }
+                    if (val != null)
+                    {
+                        if (pi.PropertyType == typeof(string))
+                        {
+                            valList.Add(pi.Name + "='" + val + "'");
+                        }
+                        else if (pi.PropertyType == typeof(int))
+                        {
+                            valList.Add(pi.Name + "=" + val);
+                        }
+                    }
+                }
+
+            }
+            string commandText = "delete from " + tableName + " where "+ string.Join(" and ", valList);
+            return dbcommon.ExecuteNonQuery(commandText);
+        }
+
+
+
+
         // 查询并返回datatable
         public static DataTable ExecuteDataTable(string commandText, params DbParameter[] commandParameters)
         {
@@ -424,35 +468,44 @@ namespace DBLibrary
         /// <returns></returns>
         public static List<T> ExecuteDataTable<T>(T t, string tableName,string sqlParam="")
         {
-            //获得所有列名
-            DataTable dt = GetColumnNames(tableName);
-
-            List<string> valList = new List<string>();
-            foreach (PropertyInfo pi in t.GetType().GetProperties())
+            try
             {
-                if (dt.Select("COLUMN_NAME='" + pi.Name.ToUpper() + "'").Length > 0)
+                //获得所有列名
+                DataTable dt = GetColumnNames(tableName);
+
+                List<string> valList = new List<string>();
+                foreach (PropertyInfo pi in t.GetType().GetProperties())
                 {
-                    var val = pi.GetValue(t, null);
-                    if (val != null)
+                    if (dt.Select("COLUMN_NAME='" + pi.Name.ToUpper() + "'").Length > 0)
                     {
-                        if (pi.PropertyType == typeof(string))
+                        var val = pi.GetValue(t, null);
+                        if (val != null)
                         {
-                            valList.Add(" and " + pi.Name + "='" + val + "'");
-                        }
-                        else if (pi.PropertyType == typeof(int))
-                        {
-                            valList.Add(" and " + pi.Name + "=" + val);
+                            if (pi.PropertyType == typeof(string))
+                            {
+                                valList.Add(" and " + pi.Name + "='" + val + "'");
+                            }
+                            else if (pi.PropertyType == typeof(int))
+                            {
+                                valList.Add(" and " + pi.Name + "=" + val);
+                            }
                         }
                     }
+
                 }
+                string commandText = "select * from " + tableName + " where 1=1  " + string.Join(" ", valList) + " " + sqlParam;
+                return ExecuteDataTable<T>(commandText);
 
+
+                //List<T> list = ExecuteDataTable<T>(commandText, commandParameters);
+                //return list.Count > 0 ? list[0] : default(T);
             }
-            string commandText = "select * from " + tableName + " where 1=1  " + string.Join(" ", valList)+ " "+sqlParam;
-            return ExecuteDataTable<T>(commandText);
+            catch (Exception)
+            {
 
-
-            //List<T> list = ExecuteDataTable<T>(commandText, commandParameters);
-            //return list.Count > 0 ? list[0] : default(T);
+                return null;
+            }
+            
         }
 
         public static T ExecuteSingleData<T>(string commandText, params DbParameter[] commandParameters)

@@ -43,7 +43,33 @@ namespace AppConfigLibrary
             XmlNode node = doc.SelectSingleNode(@"//appSettings");
 
             XmlElement ele = (XmlElement)node.SelectSingleNode(@"//add[@key='"+ key + "']");
-            ele.SetAttribute("value", val);
+            bool flag = false;
+            if (ele == null)
+            {
+                flag = true;
+            }
+            else
+            {
+                try
+                {
+                    ele.SetAttribute("value", val);
+                }
+                catch (Exception)
+                {
+                    flag = true;
+
+                }
+            }
+            
+
+            if (flag)
+            {
+                XmlNode newNode = doc.CreateNode("element", "add", "");
+                ele = (XmlElement)newNode;
+                ele.SetAttribute("key", key);
+                ele.SetAttribute("value", val);
+                node.AppendChild(newNode);
+            }
             doc.Save(strFileName);
             ////找出名称为“add”的所有元素  
             //XmlNodeList nodes = doc.GetElementsByTagName("add");

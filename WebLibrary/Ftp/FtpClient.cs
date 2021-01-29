@@ -60,6 +60,8 @@ namespace WebLibrary.Ftp
                 ftpWebRequest.Credentials = new NetworkCredential(this.loginName, this.password);
                 //
                 FtpWebResponse response = (FtpWebResponse)ftpWebRequest.GetResponse();
+                response.Close();
+                ftpWebRequest.Abort();
                 return "FTP连接成功."+response.BannerMessage;
             }
             catch (System.Net.WebException ex)
@@ -137,6 +139,7 @@ namespace WebLibrary.Ftp
                     }
                 }
                 response.Close();
+                ftpWebRequest.Abort();
                 msg = string.Format("服务器文件{0}已成功下载", Path.GetFileName(localFilePath));
                 return msg;
             }
@@ -220,6 +223,7 @@ namespace WebLibrary.Ftp
 
                 //fs.Close();
                 //Successinfo
+                ftpWebRequest.Abort();
                 msg = string.Format("本地文件{0}已成功上传", fileInf.Name);
                 return msg;
             }
@@ -281,6 +285,7 @@ namespace WebLibrary.Ftp
                 strm.Close();
 
                 response.Close();
+                ftpWebRequest.Abort();
                 //Successinfo
                 return string.Format("文件{0}已更改为{1}.", sourceRemoteFilePath, destRemoteFilePath);
             }
@@ -335,6 +340,8 @@ namespace WebLibrary.Ftp
                     }
                 }
                 response.Close();
+                sourceFtpWebRequest.Abort();
+                destFtpWebRequest.Abort();
                 return string.Format("文件{0}已成功复制到{1}.", sourceRemoteFilePath, destRemoteFilePath);
             }
 
@@ -378,7 +385,7 @@ namespace WebLibrary.Ftp
                 FtpWebResponse response = (FtpWebResponse)ftpWebRequest.GetResponse();
 
                 response.Close();
-
+                ftpWebRequest.Abort();
                 //Successinfo
                 return string.Format("文件{0}已成功删除", fileInf.Name);
             }
@@ -462,7 +469,10 @@ namespace WebLibrary.Ftp
                 request.Method = WebRequestMethods.Ftp.GetFileSize;
 
                 long dataLength = request.GetResponse().ContentLength;//(单位：字节)
+                request.GetResponse().Close();
+                request.Abort();
                 Console.Out.WriteLine(file + ":" + dataLength + "字节");
+                
                 return dataLength;
             }
             catch (Exception ex)
