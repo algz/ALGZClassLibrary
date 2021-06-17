@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RegistryKeyLibrary;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -145,6 +146,11 @@ namespace Server
                     break;
                 }
             }
+        }
+
+        private void RegProtocolBtn_Click(object sender, EventArgs e)
+        {
+            RegistryProtocol.RegistryURLProtocol("ALGZ", @"D:\Source\c#\Repos\ALGZClassLibrary\TestWinForm\bin\Debug\TestWinForm.exe");
         }
     }
 }

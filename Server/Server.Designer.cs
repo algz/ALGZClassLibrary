@@ -36,6 +36,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.socketBtn = new System.Windows.Forms.Button();
+            this.RegProtocolBtn = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -43,7 +44,7 @@
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(8, 176);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(153, 29);
             this.button1.TabIndex = 0;
@@ -54,7 +55,7 @@
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(8, 15);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(4);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(380, 144);
@@ -63,7 +64,7 @@
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(181, 176);
-            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(100, 29);
             this.button2.TabIndex = 2;
@@ -74,7 +75,7 @@
             // button3
             // 
             this.button3.Location = new System.Drawing.Point(289, 176);
-            this.button3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button3.Margin = new System.Windows.Forms.Padding(4);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(100, 29);
             this.button3.TabIndex = 3;
@@ -85,7 +86,7 @@
             // button4
             // 
             this.button4.Location = new System.Drawing.Point(281, 246);
-            this.button4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button4.Margin = new System.Windows.Forms.Padding(4);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(100, 29);
             this.button4.TabIndex = 4;
@@ -100,9 +101,9 @@
             this.groupBox1.Controls.Add(this.textBox1);
             this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Location = new System.Drawing.Point(16, 15);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox1.Size = new System.Drawing.Size(397, 212);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
@@ -112,9 +113,9 @@
             // 
             this.groupBox2.Controls.Add(this.button4);
             this.groupBox2.Location = new System.Drawing.Point(24, 235);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox2.Size = new System.Drawing.Size(389, 282);
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
@@ -130,15 +131,26 @@
             this.socketBtn.UseVisualStyleBackColor = true;
             this.socketBtn.Click += new System.EventHandler(this.socketBtn_Click);
             // 
+            // RegProtocolBtn
+            // 
+            this.RegProtocolBtn.Location = new System.Drawing.Point(448, 103);
+            this.RegProtocolBtn.Name = "RegProtocolBtn";
+            this.RegProtocolBtn.Size = new System.Drawing.Size(109, 23);
+            this.RegProtocolBtn.TabIndex = 8;
+            this.RegProtocolBtn.Text = "RegProtocol";
+            this.RegProtocolBtn.UseVisualStyleBackColor = true;
+            this.RegProtocolBtn.Click += new System.EventHandler(this.RegProtocolBtn_Click);
+            // 
             // Server
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(569, 532);
+            this.Controls.Add(this.RegProtocolBtn);
             this.Controls.Add(this.socketBtn);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Server";
             this.Text = "Server";
             this.Load += new System.EventHandler(this.Server_Load);
@@ -159,6 +171,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button socketBtn;
+        private System.Windows.Forms.Button RegProtocolBtn;
     }
 }
 

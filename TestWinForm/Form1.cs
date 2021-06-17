@@ -17,6 +17,18 @@ namespace TestWinForm
             InitializeComponent();
         }
 
+        public Form1(string[] args):this()
+        {
+            if (args.Length ==1)
+            {
+                MessageBox.Show("args.length:" + args.Length + ";arg[0]:" +args[0]+"");
+            }else if (args.Length > 1)
+            {
+                MessageBox.Show("args.length:"+args.Length+";args[0]:"+args[0]+";args[1]:"+args[1]);
+            }
+
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             new Form2().Show();
@@ -26,7 +38,7 @@ namespace TestWinForm
         {
             try
             {
-                PipeLibrary.Server.Start(WaitForConnectionCallback);
+                //PipeLibrary.Server.Start(WaitForConnectionCallback);
                 MessageBox.Show("启动成功!");
             }
             catch(Exception ex)

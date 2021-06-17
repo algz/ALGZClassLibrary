@@ -31,6 +31,15 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>false</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -64,6 +73,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -78,6 +88,10 @@
     <ProjectReference Include="..\PipeLibrary\PipeLibrary.csproj">
       <Project>{b30c69cb-6776-42b3-b323-44fb103f1997}</Project>
       <Name>PipeLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RegistryKeyLibrary\RegistryKeyLibrary.csproj">
+      <Project>{22fe2b69-ace6-45ab-b7ec-02db8df4d037}</Project>
+      <Name>RegistryKeyLibrary</Name>
     </ProjectReference>
     <ProjectReference Include="..\WebLibrary\WebLibrary.csproj">
       <Project>{83e8d18b-d59c-4cbc-be7d-254e04437282}</Project>
