@@ -1,5 +1,6 @@
 ﻿using DBLibrary;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -183,8 +184,8 @@ namespace DBLibrary
         /// <summary>
         /// 获取对象的属性(string,int),自动装载到SQL查询中,执行新增.
         /// </summary>
-        /// <param name="t"></param>
-        /// <param name="tableName"></param>
+        /// <param name="t">IDictionary<string,object> 类型；实体对象类型</param>
+        /// <param name="tableName">表名</param>
         /// <returns></returns>
         public static int ExecuteNonQuery_Add(object t, string tableName)
         {
@@ -195,22 +196,49 @@ namespace DBLibrary
             //string tableName = t.GetType().Name;
             List<string> nameList = new List<string>();
             List<string> valList = new List<string>();
-            foreach (PropertyInfo pi in t.GetType().GetProperties())
+            if (t is IDictionary)
             {
-                if(dt.Select("COLUMN_NAME='"+pi.Name.ToUpper()+"'").Length > 0)
+                //IDictionary 类型
+                IDictionary dic = t as IDictionary;
+                foreach (object obj in dic.Keys)
                 {
-                    nameList.Add(pi.Name);
-                    if (pi.PropertyType == typeof(string))
+                    string colName = obj.ToString();
+                    if (dt.Select("COLUMN_NAME='" + colName.ToUpper() + "'").Length > 0)
                     {
-                        valList.Add("'" + pi.GetValue(t, null) + "'");
+                        nameList.Add(colName);
+                        if (dic[obj].GetType() == typeof(string))
+                        {
+                            valList.Add("'" + dic[obj] + "'");
+                        }
+                        else if (dic[obj].GetType() == typeof(int))
+                        {
+                            valList.Add(dic[obj] + "");
+                        }
                     }
-                    else if (pi.PropertyType == typeof(int))
-                    {
-                        valList.Add(pi.GetValue(t, null) + "");
-                    }
-                }
 
+                }
             }
+            else
+            {
+                //其它实体对象类型
+                foreach (PropertyInfo pi in t.GetType().GetProperties())
+                {
+                    if (dt.Select("COLUMN_NAME='" + pi.Name.ToUpper() + "'").Length > 0)
+                    {
+                        nameList.Add(pi.Name);
+                        if (pi.PropertyType == typeof(string))
+                        {
+                            valList.Add("'" + pi.GetValue(t, null) + "'");
+                        }
+                        else if (pi.PropertyType == typeof(int))
+                        {
+                            valList.Add(pi.GetValue(t, null) + "");
+                        }
+                    }
+
+                }
+            }
+            
             string commandText = "insert into "+ tableName + " ("+string.Join(",",nameList)+")values("+string.Join(",",valList)+")";
             return dbcommon.ExecuteNonQuery(commandText);
         }
