@@ -59,6 +59,7 @@ namespace DBLibrary
         /// 测试数据库是否连接成功.成功返回空字符串,失败返回错误原因.
         /// </summary>
         /// <param name="connectionString"></param>
+        /// <param name="obj">暂没使用</param>
         /// <returns></returns>
         public string ConnectionTest(string connectionString,params object[] obj)
         {

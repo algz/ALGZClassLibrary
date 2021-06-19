@@ -84,17 +84,18 @@ namespace DBLibrary
         /// 默认情况下，外键约束是关闭的，当设置打开时并不能持久保持，foreign key 标注是基于会话的，也就是说每当连接关闭时，信息也就丢失了，SQLite连接字符串支持添加参数。可以在每次查询中用下面形式的连接字符串来都设置。foreign keys=true;
         /// Data Source=Data Source=" + DBPath + ";Version=3;foreign keys=true;";
         /// </summary>
-        public static string ConnectionString{get; set;}
+        public static string ConnectionString{ get => dbcommon.ConnectionString;}
 
-        
+
         /// <summary>
-        /// 测试数据库是否连接成功.成功返回空字符串,失败返回错误原因.
+        /// 测试数据库是否连接成功.
         /// </summary>
-        /// <param name="connectionString"></param>
-        /// <returns></returns>
-        public static string ConnectionTest(string connectionString,params object[] obj)
+        /// <param name="connectionString">连接字符串（可选）</param>
+        /// <param name="obj"></param>
+        /// <returns>连接成功，返回空字符串；失败，返回错误原因.</returns>
+        public static string ConnectionTest(string connectionString=null,params object[] obj)
         {
-            return dbcommon.ConnectionTest(connectionString,obj);
+            return dbcommon.ConnectionTest(connectionString??dbcommon.ConnectionString,obj);
         }
 
 
@@ -292,7 +293,7 @@ namespace DBLibrary
         /// 保存数据.
         /// 表格字段必须与方法名相同,主键名称必须是"ID".
         /// </summary>
-        /// <param name="t"></param>
+        /// <param name="t">IDictionary类型和实体类型</param>
         /// <param name="tableName"></param>
         /// <returns></returns>
         public static int ExecuteNonQuery_Update(object t, string tableName)
@@ -302,29 +303,61 @@ namespace DBLibrary
 
             List<string> valList = new List<string>();
             string id = null;
-            foreach (PropertyInfo pi in t.GetType().GetProperties())
+            if (t is IDictionary)
             {
-                if (dt.Select("COLUMN_NAME='" + pi.Name.ToUpper() + "'").Length > 0)
+                //IDictionary 类型
+                IDictionary dic = t as IDictionary;
+                foreach (object obj in dic.Keys)
                 {
-                    var val = pi.GetValue(t, null);
-                    if (pi.Name.ToUpper() == "ID")
+                    string colName = obj.ToString();
+                    if (dt.Select("COLUMN_NAME='" + colName.ToUpper() + "'").Length > 0)
                     {
-                        id = val.ToString();
-                    }
-                    if (val != null)
-                    {
-                        if (pi.PropertyType == typeof(string))
+                        var val = dic[obj];
+                        if (colName.ToUpper() == "ID")
                         {
-                            valList.Add(pi.Name + "='" + val + "'");
+                            id = val.ToString();
                         }
-                        else if (pi.PropertyType == typeof(int))
+                        if (val != null)
                         {
-                            valList.Add(pi.Name + "=" + val);
+                            if (dic[obj].GetType() == typeof(string))
+                            {
+                                valList.Add(colName + "='" + val + "'");
+                            }
+                            else if (dic[obj].GetType() == typeof(int))
+                            {
+                                valList.Add(colName + "=" + val);
+                            }
                         }
                     }
                 }
-
             }
+            else
+            {
+                foreach (PropertyInfo pi in t.GetType().GetProperties())
+                {
+                    if (dt.Select("COLUMN_NAME='" + pi.Name.ToUpper() + "'").Length > 0)
+                    {
+                        var val = pi.GetValue(t, null);
+                        if (pi.Name.ToUpper() == "ID")
+                        {
+                            id = val.ToString();
+                        }
+                        if (val != null)
+                        {
+                            if (pi.PropertyType == typeof(string))
+                            {
+                                valList.Add(pi.Name + "='" + val + "'");
+                            }
+                            else if (pi.PropertyType == typeof(int))
+                            {
+                                valList.Add(pi.Name + "=" + val);
+                            }
+                        }
+                    }
+
+                }
+            }
+            
             string commandText = "update " + tableName + " set "+string.Join(",",valList)+" where id='"+id+"'";
             return dbcommon.ExecuteNonQuery(commandText);
         }
@@ -491,7 +524,7 @@ namespace DBLibrary
         /// 使用此函数，对象名称必须与数据字段名称一致。
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="t"></param>
+        /// <param name="t">如果t为null，查询所有值;对象属性值如果为null,不查询此属性，但属性值为空字符串，则查询。</param>
         /// <param name="tableName"></param>
         /// <returns></returns>
         public static List<T> ExecuteDataTable<T>(T t, string tableName,string sqlParam="")
@@ -500,28 +533,37 @@ namespace DBLibrary
             {
                 //获得所有列名
                 DataTable dt = GetColumnNames(tableName);
-
                 List<string> valList = new List<string>();
-                foreach (PropertyInfo pi in t.GetType().GetProperties())
+                string commandText = "";
+                if (t != null)
                 {
-                    if (dt.Select("COLUMN_NAME='" + pi.Name.ToUpper() + "'").Length > 0)
+                    foreach (PropertyInfo pi in t.GetType().GetProperties())
                     {
-                        var val = pi.GetValue(t, null);
-                        if (val != null)
+                        if (dt.Select("COLUMN_NAME='" + pi.Name.ToUpper() + "'").Length > 0)
                         {
-                            if (pi.PropertyType == typeof(string))
+                            var val = pi.GetValue(t, null);
+                            if (val != null)
                             {
-                                valList.Add(" and " + pi.Name + "='" + val + "'");
-                            }
-                            else if (pi.PropertyType == typeof(int))
-                            {
-                                valList.Add(" and " + pi.Name + "=" + val);
+                                if (pi.PropertyType == typeof(string))
+                                {
+                                    valList.Add(" and " + pi.Name + "='" + val + "'");
+                                }
+                                else if (pi.PropertyType == typeof(int))
+                                {
+                                    valList.Add(" and " + pi.Name + "=" + val);
+                                }
                             }
                         }
-                    }
 
+                    }
+                    commandText = "select * from " + tableName + " where 1=1  " + string.Join(" ", valList) + " " + sqlParam;
                 }
-                string commandText = "select * from " + tableName + " where 1=1  " + string.Join(" ", valList) + " " + sqlParam;
+                else
+                {
+                    commandText = "select * from " + tableName;
+                }
+
+                
                 return ExecuteDataTable<T>(commandText);
 
 
@@ -579,6 +621,18 @@ namespace DBLibrary
             return val;
         }
 
+        /// <summary>
+        /// 删除字段
+        /// </summary>
+        /// <param name="fieldName"></param>
+        /// <param name="tableName"></param>
+        /// <returns></returns>
+        public static int DropField(string fieldName,string tableName)
+        {
+            string sql = "ALTER TABLE WL_PARAMETERDATA drop (\"" + fieldName + "\")";
+            return dbcommon.ExecuteNonQuery(sql);
+
+        }
 
     }
 
