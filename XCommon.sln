@@ -51,6 +51,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickZipLibrary", "QuickZip
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailLibrary", "EmailLibrary\EmailLibrary.csproj", "{CE482633-91AC-45F1-8508-79883ED188EA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoUpdate", "AutoUpdate\AutoUpdate.csproj", "{EC7CA710-5E79-4C81-AA02-D9049428EC0B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -251,6 +253,14 @@ Global
 		{CE482633-91AC-45F1-8508-79883ED188EA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CE482633-91AC-45F1-8508-79883ED188EA}.Release|x86.ActiveCfg = Release|Any CPU
 		{CE482633-91AC-45F1-8508-79883ED188EA}.Release|x86.Build.0 = Release|Any CPU
+		{EC7CA710-5E79-4C81-AA02-D9049428EC0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC7CA710-5E79-4C81-AA02-D9049428EC0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC7CA710-5E79-4C81-AA02-D9049428EC0B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EC7CA710-5E79-4C81-AA02-D9049428EC0B}.Debug|x86.Build.0 = Debug|Any CPU
+		{EC7CA710-5E79-4C81-AA02-D9049428EC0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC7CA710-5E79-4C81-AA02-D9049428EC0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC7CA710-5E79-4C81-AA02-D9049428EC0B}.Release|x86.ActiveCfg = Release|Any CPU
+		{EC7CA710-5E79-4C81-AA02-D9049428EC0B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

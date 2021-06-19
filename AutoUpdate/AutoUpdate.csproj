@@ -73,7 +73,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Repos\ALGZClassLibrary\AppConfigLibrary\AppConfigLibrary.csproj">
+    <ProjectReference Include="..\AppConfigLibrary\AppConfigLibrary.csproj">
       <Project>{20f6a341-7dc3-4f07-a01d-83e146a38f85}</Project>
       <Name>AppConfigLibrary</Name>
     </ProjectReference>
@@ -81,7 +81,7 @@
       <Project>{03d5efa2-9a43-4f97-a9f0-975cf2a53339}</Project>
       <Name>DBLibrary</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Repos\ALGZClassLibrary\SystemIOLibrary\SystemIOLibrary.csproj">
+    <ProjectReference Include="..\SystemIOLibrary\SystemIOLibrary.csproj">
       <Project>{2e4c3ab1-87eb-4900-a6d1-fc3ae6008d6f}</Project>
       <Name>SystemIOLibrary</Name>
     </ProjectReference>
